@@ -67,3 +67,8 @@ vcpkg_installed/
 # test output & cache
 Testing/
 .cache/
+
+# misc
+misc_notes/
+.VSCodecounter/
+.vscode
