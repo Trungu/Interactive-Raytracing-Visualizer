@@ -1,20 +1,39 @@
-#include "receiver.hpp"
+#include "Receiver.hpp"
 #include <algorithm>
+#include <cmath>
 
-bool Receiver::intersect(const Vec3 &start, const Vec3 &end) const
+std::optional<double> Receiver::entryDistance(const Vec3 &start, const Vec3 &end) const
 {
-    Vec3 segment = end - start;
-    double lengthSquared = segment.length_squared();
-
-    if (lengthSquared == 0)
-        return (start - position).length() <= radius;
 
     Vec3 toReceiver = position - start;
-    double t = dot(toReceiver, segment) / lengthSquared;
 
-    t = std::clamp(t, 0.0, 1.0);
+    if (toReceiver.length() <= radius)
+        return 0.0;
 
-    Vec3 closest_point = start + (segment * t);
+    Vec3 segment = end - start;
+    double segmentLength = segment.length();
 
-    return (closest_point - position).length() <= radius;
+    if (segmentLength == 0.0)
+        return std::nullopt;
+
+    Vec3 direction = segment / segmentLength;
+
+    double proj = dot(toReceiver, direction);
+
+    Vec3 perpendicular = toReceiver - direction * proj;
+    double perpendicularSquared = perpendicular.length_squared();
+
+    // if the closest point is outside the radius, the whole line misses.
+    if (perpendicularSquared > radius * radius)
+        return std::nullopt;
+
+    double d = std::sqrt(radius * radius - perpendicularSquared);
+
+    // distance to entry point
+    double entry = proj - d;
+
+    if (entry < 0.0 || entry > segmentLength)
+        return std::nullopt;
+
+    return entry;
 }

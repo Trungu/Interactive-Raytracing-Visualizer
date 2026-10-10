@@ -12,7 +12,7 @@ using std::vector, std::numbers::pi;
 
 vector<vector<Vec3>> generate_paths(
     const Vec3 &source,
-    const vector<Plane> &room,
+    const vector<Wall> &room,
     int ray_count,
     int max_bounces,
     unsigned int seed)
@@ -43,6 +43,36 @@ vector<vector<Vec3>> generate_paths(
             radius * std::sin(angle),
             z //
         );
+
+        Ray ray(source, direction);
+        paths.push_back(get_path(ray, room, max_bounces));
+    }
+
+    return paths;
+}
+
+vector<vector<Vec3>> generate_horizontal_paths(
+    const Vec3 &source,
+    const vector<Wall> &room,
+    int ray_count,
+    int max_bounces)
+{
+    if (ray_count <= 0 || max_bounces <= 0)
+    {
+        throw std::invalid_argument("Ray count and maximum bounces must be a positive number");
+    }
+
+    vector<vector<Vec3>> paths;
+    paths.reserve(ray_count);
+
+    for (int i = 0; i < ray_count; i++)
+    {
+        double angle = 2.0 * pi * (static_cast<double>(i) / ray_count);
+
+        Vec3 direction(
+            std::cos(angle),
+            std::sin(angle),
+            0.0);
 
         Ray ray(source, direction);
         paths.push_back(get_path(ray, room, max_bounces));

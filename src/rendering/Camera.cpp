@@ -13,10 +13,8 @@ glm::mat4 createOrbitView(
         -cameraDistance * glm::cos(pitch) * glm::cos(yaw),
         cameraDistance * glm::sin(pitch));
 
-    // get the camera position by adding it to the target
     glm::vec3 cameraPosition = target + cameraOffset;
 
-    // view matrix
     glm::mat4 view = glm::lookAt(
         cameraPosition,
         target,

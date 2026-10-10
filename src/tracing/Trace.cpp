@@ -3,13 +3,13 @@
 
 using std::vector, std::optional, std::nullopt;
 
-optional<Intersection> find_closest_hit(const Ray &incoming, const vector<Plane> &planes)
+optional<Intersection> find_closest_hit(const Ray &incoming, const vector<Wall> &walls)
 {
     optional<Intersection> closest_hit = nullopt;
 
-    for (const auto &plane : planes)
+    for (const auto &wall : walls)
     {
-        optional<Intersection> intersection = calculate_intersection(incoming, plane);
+        optional<Intersection> intersection = calculate_intersection(incoming, wall);
 
         if (!intersection)
             continue;
@@ -28,14 +28,14 @@ optional<Intersection> find_closest_hit(const Ray &incoming, const vector<Plane>
     return closest_hit;
 }
 
-vector<Vec3> get_path(const Ray &intiial_ray, const vector<Plane> &planes, int max_bounces)
+vector<Vec3> get_path(const Ray &intiial_ray, const vector<Wall> &walls, int max_bounces)
 {
     vector<Vec3> path = {intiial_ray.origin()};
     Ray current_ray = intiial_ray;
 
     for (int i = 0; i < max_bounces; i++)
     {
-        optional<Intersection> closest_hit = find_closest_hit(current_ray, planes);
+        optional<Intersection> closest_hit = find_closest_hit(current_ray, walls);
 
         if (!closest_hit)
             break;

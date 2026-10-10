@@ -18,10 +18,14 @@ Ray generate_reflection(const Ray &incoming_ray, const Intersection &intersectio
 {
     Vec3 reflected_dir = get_reflection_dir(incoming_ray, intersection.normal);
 
+    // Interior walls can be hit from either side. Offset toward the outgoing ray.
+    Vec3 offset_normal = intersection.normal;
+    if (dot(reflected_dir, offset_normal) < 0.0)
+        offset_normal = -offset_normal;
+
     Vec3 origin_new = intersection.position
-                         + (intersection.normal * tolerance);
+                         + (offset_normal * tolerance);
 
     return Ray(origin_new, reflected_dir);
 }
-
 

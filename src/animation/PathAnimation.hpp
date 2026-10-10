@@ -4,3 +4,8 @@
 std::vector<Vec3> get_visible_path(
     const std::vector<Vec3> &fullPath,
     double distanceTravelled);
+
+std::vector<Vec3> get_path_section(
+    const std::vector<Vec3> &fullPath,
+    double startDistance,
+    double endDistance);

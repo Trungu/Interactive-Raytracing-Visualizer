@@ -9,7 +9,6 @@ optional<Intersection> calculate_intersection(const Ray &ray, const Plane &plane
 {
     double n_d = dot(plane.normal(), ray.direction());
 
-    // an intersection is invalid if the ray is parallel to the plane
     // for this we check if n_d is within a certain tolerance (i.e some value close to 0)
     if (abs(n_d) < tolerance || !isfinite(n_d))
         return nullopt;
@@ -24,3 +23,20 @@ optional<Intersection> calculate_intersection(const Ray &ray, const Plane &plane
 
     return Intersection{t, pos, plane.normal()};
 }
+
+optional<Intersection> calculate_intersection(const Ray &ray, const Wall &wall)
+{
+    auto intersection = calculate_intersection(ray, wall.plane());
+
+    if (intersection)
+    {
+        Vec3 point = intersection->position;
+
+        if (!wall.containsPoint(point))
+            return nullopt;
+
+        return intersection;
+    }
+
+    return nullopt;
+};

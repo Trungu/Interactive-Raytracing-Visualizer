@@ -11,13 +11,14 @@ add_library(math_core
     src/geometry/Plane.cpp
     src/geometry/Intersection.cpp
     src/geometry/Reflection.cpp
-    src/geometry/receiver.cpp
+    src/geometry/Receiver.cpp
+    src/geometry/Wall.cpp
     src/tracing/Trace.cpp
     src/tracing/RayEmitter.cpp
     src/animation/PathAnimation.cpp
     src/animation/Playback.cpp
     src/scene/Room.cpp
-    
+    src/scene/Scene.cpp
 )
 
 target_include_directories(math_core PUBLIC
