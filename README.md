@@ -6,6 +6,16 @@ The project is intended as a general foundation that can later be adapted to spe
 
 ## Demonstrations
 
+
+
+https://github.com/user-attachments/assets/caeac3dc-246d-44e2-a394-be317d0adf80
+
+https://github.com/user-attachments/assets/0c9ccf03-c396-4437-b726-cd89202c72d9
+
+
+
+
+
 ## Features
 
 - Multi-bounce ray tracing against bounded, axis-aligned rectangular walls.
