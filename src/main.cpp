@@ -116,7 +116,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
 
     GLFWwindow *window =
-        glfwCreateWindow(1000, 700, "Acoustic Raytracer", nullptr, nullptr);
+        glfwCreateWindow(1000, 700, "Ray Tracing Visualizer", nullptr, nullptr);
 
     if (!window)
     {

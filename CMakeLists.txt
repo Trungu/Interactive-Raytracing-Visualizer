@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(Raytracer LANGUAGES CXX)
+project(RayTracingVisualizer LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -25,7 +25,7 @@ target_include_directories(math_core PUBLIC
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
 )
 
-add_executable(Acoustic-Raytracer
+add_executable(Ray-Tracing-Visualizer
     src/main.cpp
     src/rendering/ShaderProgram.cpp
     src/rendering/Renderer.cpp
@@ -36,7 +36,7 @@ find_package(glfw3 REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(glm CONFIG REQUIRED)
 
-target_link_libraries(Acoustic-Raytracer PRIVATE
+target_link_libraries(Ray-Tracing-Visualizer PRIVATE
     math_core
     glfw
     OpenGL::GL
